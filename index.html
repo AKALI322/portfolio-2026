@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的作品集 | My Portfolio</title>
+    <title>我的作品集 | Portfolio</title>
     <style>
         /* 1. 全局重置 */
         * {
@@ -12,129 +12,216 @@
             box-sizing: border-box;
         }
 
-        body, html {
-            height: 100%;
-            width: 100%;
+        body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            overflow: hidden; /* 防止出现滚动条 */
+            background-color: white; /* 下半部分背景是白色 */
+            color: #333;
+            overflow-x: hidden; /* 防止水平滚动 */
+        }
+
+        /* 2. 顶部导航栏 (悬浮在视频上) */
+        .navbar {
+            position: absolute; /* 绝对定位，盖在视频上 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between; /* 左右两边对齐 */
+            align-items: center;
+            z-index: 100; /* 保证在最上层 */
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            /* 如果你有logo图片，可以在这里用 img 标签 */
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px; /* 菜单项之间的间距 */
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.7;
+        }
+
+        /* 3. 首屏 Hero 区域 (视频背景) */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 85vh; /* 关键点：高度设为视窗的 85%，这样能露出下面的内容 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             color: white;
         }
 
-        /* 2. 视频背景层 - 核心代码 */
-        .video-bg {
-            position: fixed;
+        /* 视频样式 */
+        .hero-video {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 保证视频填满屏幕且不变形 */
-            z-index: -2; /* 放在最底层 */
-        }
-
-        /* 3. 黑色遮罩层 (可选) */
-        /* 加一层半透明黑色，让上面的文字更清晰 */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* 0.4 是透明度，可调整 */
+            object-fit: cover; /* 填满容器 */
             z-index: -1;
         }
 
-        /* 4. 主要内容容器 */
-        .container {
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; /* 内容靠底部对齐 */
-        }
-
-        /* logo 或 标题 (可选) */
-        .header {
+        /* 视频上的黑色遮罩，让文字更清晰 */
+        .hero-overlay {
             position: absolute;
-            top: 40px;
-            left: 40px;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        /* 5. 底部导航栏 */
-        .nav-bar {
-            display: flex;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 150px; /* 导航栏高度 */
-            border-top: 1px solid rgba(255, 255, 255, 0.3); /* 顶部分割线 */
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: 0;
         }
 
-        .nav-item {
-            flex: 1; /* 让4个栏目平分宽度 */
+        /* 视频中间的文字内容 */
+        .hero-content {
+            position: relative;
+            z-index: 1; /* 在遮罩层之上 */
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            background-color: #ff4500; /* 参考图里的橙红色按钮 */
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #e03e00;
+        }
+
+        /* 4. 下方内容区域 (1234 子页面) */
+        .content-section {
+            padding: 80px 50px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: #444;
+        }
+
+        /* 链接容器 */
+        .links-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* 间距 */
+            flex-wrap: wrap; /* 手机上自动换行 */
+        }
+
+        /* 单个链接卡片 */
+        .link-card {
+            width: 250px; /* 卡片宽度 */
+            height: 150px;
+            background-color: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: white;
+            color: #333;
             font-size: 1.2rem;
-            position: relative;
-            transition: all 0.3s ease; /* 动态过渡效果 */
-            border-right: 1px solid rgba(255, 255, 255, 0.1); /* 分隔线 */
+            font-weight: bold;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
         }
 
-        .nav-item:last-child {
-            border-right: none;
+        .link-card:hover {
+            background-color: #333; /* 悬停变黑 */
+            color: white; /* 文字变白 */
+            transform: translateY(-5px); /* 微微上浮 */
         }
 
-        /* 鼠标悬停动态效果 */
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.1); /* 背景变亮 */
-            font-size: 1.3rem; /* 字体放大 */
-        }
-
-        /* 手机端适配 */
+        /* 手机适配 */
         @media (max-width: 768px) {
-            .nav-bar {
-                flex-direction: column; /* 手机上变成垂直排列 */
-                height: auto;
-            }
-            .nav-item {
-                padding: 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                border-right: none;
-            }
+            .hero-title { font-size: 2.5rem; }
+            .navbar { padding: 20px; }
+            .nav-menu { display: none; /* 手机上暂时隐藏菜单，以免拥挤 */ }
+            .links-grid { flex-direction: column; align-items: center; }
+            .link-card { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <video class="video-bg" autoplay muted loop playsinline poster="fallback.jpg">
-        <source src="bg.mp4" type="video/mp4">
-        您的浏览器不支持视频标签。
-    </video>
+    <nav class="navbar">
+        <a href="#" class="logo">BMS STYLE</a>
+        
+        <div class="nav-menu">
+            <a href="index.html">HOME</a>
+            <a href="#">COLLECTIONS</a>
+            <a href="mailto:your@email.com">CONTACT</a>
+        </div>
+    </nav>
 
-    <div class="overlay"></div>
+    <header class="hero-section">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="bg.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
 
-    <div class="container">
-        <div class="header">ART OF YOU</div>
+        <div class="hero-content">
+            <h1 class="hero-title">Big Medium Small</h1>
+            <p class="hero-subtitle">WE CREATE ASSETS, SO YOU CAN CREATE WORLDS</p>
+            <a href="#collections" class="cta-button">New Release</a>
+        </div>
+    </header>
 
-        <nav class="nav-bar">
-            <a href="page1.html" class="nav-item">
-                <span>01. COMMERCIAL</span>
-            </a>
-            <a href="page2.html" class="nav-item">
-                <span>02. MUSIC VIDEO</span>
-            </a>
-            <a href="page3.html" class="nav-item">
-                <span>03. DOCUMENTARY</span>
-            </a>
-            <a href="page4.html" class="nav-item">
-                <span>04. ABOUT ME</span>
-            </a>
-        </nav>
-    </div>
+    <section id="collections" class="content-section">
+        <h2 class="section-title">Tell your stories with our Collections</h2>
+        
+        <div class="links-grid">
+            <a href="page1.html" class="link-card">01 WORK</a>
+            <a href="page2.html" class="link-card">02 PROJECT</a>
+            <a href="page3.html" class="link-card">03 SERIES</a>
+            <a href="page4.html" class="link-card">04 ABOUT</a>
+        </div>
+        
+        <p style="margin-top: 40px; color: #888; font-size: 0.9rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Each character, vehicle, building, and prop in our Collections has a story. We created these assets so you can tell your stories.
+        </p>
+    </section>
 
 </body>
 </html>
