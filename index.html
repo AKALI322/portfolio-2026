@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的作品集 | Portfolio</title>
+    <title>ZIJIE | Portfolio</title>
     <style>
         /* =========================================
            0. 颜色配置 (在这里修改颜色)
@@ -46,12 +46,28 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: white; 
+            display: flex;
+            align-items: center;
             text-decoration: none;
             letter-spacing: 2px;
-            transition: color 0.3s; /* 颜色渐变过渡 */
+            transition: color 0.3s;
+        }
+
+        /* 使用 PNG 作为遮罩（mask），背景色由 --accent-color 控制 */
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            background-color: white; /* 默认色，与其他菜单一致 */
+            -webkit-mask: url("logo-150x150.png") no-repeat center / contain;
+            mask: url("logo-150x150.png") no-repeat center / contain;
+            transition: background-color 0.25s ease, transform 0.25s ease;
+        }
+
+        /* 悬停时使用统一的 accent 颜色 */
+        .logo:hover .logo-icon {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
         }
 
         .nav-menu {
@@ -69,8 +85,7 @@
             transition: color 0.3s; /* 颜色渐变过渡 */
         }
 
-        /* --- 鼠标悬停变色效果 --- */
-        .logo:hover,
+        /* --- 鼠标悬停变色效果（仅菜单文字） --- */
         .nav-menu a:hover {
             color: var(--accent-color); /* 调用上面定义的颜色 */
         }
@@ -249,10 +264,10 @@
 </head>
 <body>
 
-    <button id="backToTopBtn" title="Back to Top">↑</button>
+    <button id="backToTopBtn" title="Back to Top" type="button" aria-label="回到顶部">↑</button>
 
     <nav class="navbar">
-        <a href="#" class="logo">ZIJIE</a>
+        <a href="#" class="logo" aria-label="ZIJIE"><span class="logo-icon" aria-hidden="true"></span></a>
         <div class="nav-menu">
             <a href="index.html">HOME</a>
             <a href="#">COLLECTIONS</a>
@@ -293,6 +308,7 @@
                 <span class="item-number">004</span>
                 <span class="item-title">Others</span>
                 <span class="item-arrow">→</span>
+            </a>
         </div>
     </section>
 
