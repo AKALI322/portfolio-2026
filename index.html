@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIJIE | Portfolio</title>
+    <title>我的作品集 | Portfolio</title>
     <style>
+        /* =========================================
+           0. 颜色配置 (在这里修改颜色)
+           ========================================= */
+        :root {
+            /* 把 #ff4500 改成任何你想要的颜色代码即可 */
+            --accent-color: #ff4500; 
+        }
+
         /* 1. 全局重置 */
         * {
             margin: 0;
@@ -12,186 +20,243 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: white; /* 下半部分背景是白色 */
-            color: #333;
-            overflow-x: hidden; /* 防止水平滚动 */
+        html {
+            scroll-behavior: smooth; /* 全局平滑滚动 */
         }
 
-        /* 2. 顶部导航栏 (悬浮在视频上) */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: white;
+            color: #000;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 2. 顶部导航栏 */
         .navbar {
-            position: absolute; /* 绝对定位，盖在视频上 */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             padding: 30px 50px;
             display: flex;
-            justify-content: space-between; /* 左右两边对齐 */
+            justify-content: space-between;
             align-items: center;
-            z-index: 100; /* 保证在最上层 */
+            z-index: 100;
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: white;
+            color: white; 
             text-decoration: none;
-            /* 如果你有logo图片，可以在这里用 img 标签 */
+            letter-spacing: 2px;
+            transition: color 0.3s; /* 颜色渐变过渡 */
         }
 
         .nav-menu {
             display: flex;
-            gap: 30px; /* 菜单项之间的间距 */
+            gap: 30px;
         }
 
         .nav-menu a {
             text-decoration: none;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            transition: opacity 0.3s;
+            transition: color 0.3s; /* 颜色渐变过渡 */
         }
 
+        /* --- 鼠标悬停变色效果 --- */
+        .logo:hover,
         .nav-menu a:hover {
-            opacity: 0.7;
+            color: var(--accent-color); /* 调用上面定义的颜色 */
         }
 
-        /* 3. 首屏 Hero 区域 (视频背景) */
+        /* 3. Hero 区域 (视频背景) */
         .hero-section {
             position: relative;
             width: 100%;
-            height: 85vh; /* 关键点：高度设为视窗的 85%，这样能露出下面的内容 */
-            overflow: hidden;
+            height: 85vh; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: white;
+            overflow: hidden;
         }
 
-        /* 视频样式 */
         .hero-video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 填满容器 */
+            object-fit: cover;
             z-index: -1;
         }
 
-        /* 视频上的黑色遮罩，让文字更清晰 */
         .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); 
+            background: rgba(0, 0, 0, 0.3);
             z-index: 0;
         }
 
-        /* 视频中间的文字内容 */
         .hero-content {
             position: relative;
-            z-index: 1; /* 在遮罩层之上 */
-            max-width: 800px;
-            padding: 20px;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 20px;
         }
 
         .hero-title {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-        }
-
-        .cta-button {
-            padding: 15px 40px;
-            background-color: #ff4500; /* 参考图里的橙红色按钮 */
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            transition: background 0.3s;
+            font-weight: 400;
         }
 
-        .cta-button:hover {
-            background-color: #e03e00;
-        }
-
-        /* 4. 下方内容区域 (1234 子页面) */
-        .content-section {
-            padding: 80px 50px;
+        /* 4. 下方列表区域 */
+        .list-section {
             background-color: white;
-            text-align: center;
+            padding: 60px 50px 40px 50px; /* 底部稍微留少点，因为下面有Footer */
         }
 
-        .section-title {
-            margin-bottom: 50px;
-            font-size: 2rem;
-            color: #444;
-        }
-
-        /* 链接容器 */
-        .links-grid {
+        .project-list {
             display: flex;
-            justify-content: center;
-            gap: 20px; /* 间距 */
-            flex-wrap: wrap; /* 手机上自动换行 */
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* 单个链接卡片 */
-        .link-card {
-            width: 250px; /* 卡片宽度 */
-            height: 150px;
-            background-color: #f5f5f5;
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 0;
+            border-bottom: 1px solid #000;
+            text-decoration: none;
+            color: #000;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .item-number {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin-right: 40px;
+            font-weight: bold;
+        }
+
+        .item-title {
+            flex: 1;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-underline-offset: 5px;
+        }
+
+        .item-arrow {
+            font-size: 1.5rem;
+            font-weight: light;
+        }
+
+        .list-item:hover {
+            background-color: #000;
+            color: #fff;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        .list-item:hover .item-title {
+            text-decoration: none;
+        }
+
+        /* 5. 底部版权 Footer */
+        .footer {
+            background-color: white;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            border-top: 1px solid #eee; /* 很浅的分割线 */
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        /* 6. 回到顶部按钮 */
+        #backToTopBtn {
+            position: fixed; /* 固定在屏幕右下角 */
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #000; /* 黑色背景 */
+            color: white;
+            border: none;
+            border-radius: 50%; /* 圆形 */
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0; /* 默认隐藏 */
+            visibility: hidden;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
-            color: #333;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: 1px solid #ddd;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .link-card:hover {
-            background-color: #333; /* 悬停变黑 */
-            color: white; /* 文字变白 */
+        #backToTopBtn:hover {
+            background-color: var(--accent-color); /* 悬停时也变橙色 */
             transform: translateY(-5px); /* 微微上浮 */
         }
 
-        /* 手机适配 */
+        /* 当添加了 .show 类时显示 */
+        #backToTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 手机端适配 */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
             .navbar { padding: 20px; }
-            .nav-menu { display: none; /* 手机上暂时隐藏菜单，以免拥挤 */ }
-            .links-grid { flex-direction: column; align-items: center; }
-            .link-card { width: 100%; }
+            .nav-menu { display: none; }
+            .hero-title { font-size: 2.5rem; }
+            .list-section { padding: 40px 20px; }
+            #backToTopBtn { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
         }
     </style>
 </head>
 <body>
 
+    <button id="backToTopBtn" title="Back to Top">↑</button>
+
     <nav class="navbar">
         <a href="#" class="logo">ZIJIE</a>
-        
         <div class="nav-menu">
             <a href="index.html">HOME</a>
             <a href="#">COLLECTIONS</a>
-            <a href="mailto:your@email.com">CONTACT</a>
+            <a href="#">CONTACT</a>
         </div>
     </nav>
 
@@ -200,29 +265,64 @@
             <source src="bg.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
-
         <div class="hero-content">
             <h1 class="hero-title">CAO ZIJIE</h1>
-            <h1 class="hero-title">Concept Artist</h1>
+            <p class="hero-subtitle">Concept Artist</p>
             <p class="hero-subtitle">Creating worlds that players never want to leave</p>
-            <a href="#collections" class="cta-button">联系我</a>
         </div>
     </header>
 
-    <section id="collections" class="content-section">
-        <h2 class="section-title"> </h2>
-        
-        <div class="links-grid">
-            <a href="page1.html" class="link-card">01 WORK</a>
-            <a href="page2.html" class="link-card">02 PROJECT</a>
-            <a href="page3.html" class="link-card">03 SERIES</a>
-            <a href="page4.html" class="link-card">04 ABOUT</a>
+    <section class="list-section">
+        <div class="project-list">
+            <a href="page1.html" class="list-item">
+                <span class="item-number">001</span>
+                <span class="item-title">IFUN</span>
+                <span class="item-arrow">→</span>
+            </a>
+            <a href="page2.html" class="list-item">
+                <span class="item-number">002</span>
+                <span class="item-title">LMD</span>
+                <span class="item-arrow">→</span>
+            </a>
+            <a href="page3.html" class="list-item">
+                <span class="item-number">003</span>
+                <span class="item-title">Virtuos</span>
+                <span class="item-arrow">→</span>
+            </a>
+            <a href="page4.html" class="list-item">
+                <span class="item-number">004</span>
+                <span class="item-title">Others</span>
+                <span class="item-arrow">→</span>
         </div>
-        
-        <p style="margin-top: 40px; color: #888; font-size: 0.9rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Each character, vehicle, building, and prop in our Collections has a story. We created these assets so you can tell your stories.
-        </p>
     </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 caozijie. All rights reserved.</p>
+        <p>Designed for Portfolio Showcase.</p>
+    </footer>
+
+    <script>
+        // 获取按钮元素
+        const backToTopBtn = document.getElementById("backToTopBtn");
+
+        // 监听页面滚动事件
+        window.onscroll = function() {
+            // 如果向下滚动超过 300px，就显示按钮
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.classList.add("show");
+            } else {
+                backToTopBtn.classList.remove("show");
+            }
+        };
+
+        // 点击按钮回到顶部
+        backToTopBtn.onclick = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // 平滑滚动
+            });
+        };
+    </script>
 
 </body>
 </html>
