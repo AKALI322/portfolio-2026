@@ -6,7 +6,8 @@
     <title>IFUN | ZIJIE Portfolio</title>
     
     <link rel="stylesheet" href="style.css"> 
-</head>
+    
+    </head>
 <body>
 
     <button id="backToTopBtn" title="Back to Top" type="button" aria-label="回到顶部">↑</button>
@@ -29,34 +30,48 @@
         <h1 class="project-title">IFUN PROJECT</h1>
 
         <div class="info-grid">
+            
             <div class="info-col">
                 <h3>SYNOPSIS</h3>
                 <p>
-                    IFUN is a strategic initiative focusing on interactive entertainment environments. 
-                    My role involved creating the core visual language, defining the atmosphere through 
-                    concept art.
+                    [请在此处填写 IFUN 项目的简短介绍。例如：负责该项目核心场景和世界观的概念设计，包括 3D 预可视化（Blender）和关键帧插画。]
                 </p>
             </div>
 
             <div class="info-col">
                 <h3>DISCIPLINES</h3>
-                <p>Concept Design</p>
-                <p>3D Art (Blender)</p>
-                <p>Environment Art</p>
+                <p>
+                    Environment Concept Design
+                </p>
+                <p>
+                    3D Pre-visualization (Blender)
+                </p>
+                <p>
+                    Generative AI Integration
+                </p>
             </div>
 
             <div class="info-col">
                 <h3>DATE</h3>
-                <p>2024-2025</p>
+                <p>
+                    2024
+                </p>
+                <h3 style="margin-top: 15px;">CLIENT</h3>
+                <p>
+                    [客户/公司名称]
+                </p>
             </div>
         </div>
     </header>
 
     <section class="image-section">
-        <img src="bg_ifun.jpg" alt="IFUN Main View" class="project-img">
+        <div class="hero-image" style="background-image: url('bg_ifun.jpg');">
+        </div>
         
-        <img src="bg1_ifun.jpg" alt="IFUN Detail View" class="project-img">
-    </section>
+        <div class="hero-image" style="background-image: url('bg1_ifun.jpg');">
+        </div>
+        
+        </section>
 
     <footer class="footer">
         <p>&copy; 2026 caozijie. All Rights Reserved.</p>
@@ -64,19 +79,32 @@
     </footer>
 
     <script>
+        // 获取按钮元素
         const backToTopBtn = document.getElementById("backToTopBtn");
+
+        // 监听页面滚动事件
         window.onscroll = function() {
+            // 如果向下滚动超过 300px，就显示按钮
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 backToTopBtn.classList.add("show");
             } else {
                 backToTopBtn.classList.remove("show");
             }
         };
+
+        // 点击按钮回到顶部
         backToTopBtn.onclick = function() {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // 平滑滚动
+            });
         };
+
+        // 汉堡菜单切换
         const hamburger = document.getElementById("hamburger");
         const navMenu = document.querySelector(".nav-menu");
+
+        // 确保汉堡菜单的逻辑能正常绑定
         if (hamburger) {
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
