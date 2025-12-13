@@ -292,3 +292,99 @@
             .list-section { padding: 40px 20px; }
             #backToTopBtn { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
         }
+
+        /* 项目页面样式 */
+        .project-header {
+            background-color: #000;
+            color: white;
+            padding: 80px 50px 60px 50px;
+            text-align: center;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-col h3 {
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .info-col p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+
+        .image-section {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .gallery-section {
+            padding: 60px 50px;
+            background-color: #f5f5f5;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* 项目页面手机端适配 */
+        @media (max-width: 768px) {
+            .project-header {
+                padding: 60px 20px 40px 20px;
+            }
+            .project-title {
+                font-size: 2rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero-image {
+                height: 40vh;
+            }
+            .gallery-section {
+                padding: 40px 20px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
