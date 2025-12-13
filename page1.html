@@ -5,236 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IFUN | ZIJIE Portfolio</title>
     
-    <style>
-        /* =========================================
-           0. 颜色配置 (从主页继承)
-           ========================================= */
-        :root {
-            /* 保持和主页一致 */
-            --accent-color: #ff4500; 
-        }
-
-        /* 1. 全局重置 (从主页继承) */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { 
-            font-family: 'Helvetica Neue', Arial, sans-serif; 
-            background-color: white; /* 子页面改为白色背景 */
-            color: #000; /* 文字改为黑色 */
-            overflow-x: hidden; 
-            position: relative; 
-        }
-
-        /* 2. 顶部导航栏 (核心修改：去掉绝对定位，换成白色背景) */
-        .navbar {
-            position: relative; /* 相对定位，不再浮动 */
-            background-color: white; /* 白色背景 */
-            width: 100%;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            border-bottom: 1px solid #eee; /* 底部细线分隔 */
-        }
-        
-        /* 导航栏元素颜色覆盖 (强制黑色) */
-        .logo, .nav-menu a {
-            color: #000 !important; 
-            text-decoration: none;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
-
-        /* 汉堡菜单和 Logo 图标颜色覆盖 (强制黑色) */
-        .hamburger span, .logo-icon {
-            background-color: #000 !important; 
-        }
-        
-        .logo:hover, .nav-menu a:hover {
-            color: var(--accent-color) !important; 
-        }
-        .logo:hover .logo-icon {
-            background-color: var(--accent-color) !important; 
-            transform: translateY(-2px);
-        }
-
-        /* 3. 汉堡菜单 (继承主页) */
-        .nav-menu {
-            display: flex;
-            gap: 40px;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            display: block;
-            height: 2px;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            display: inline-block;
-            -webkit-mask: url("logo-150x150.png") no-repeat center / contain;
-            mask: url("logo-150x150.png") no-repeat center / contain;
-            transition: background-color 0.25s ease, transform 0.25s ease;
-        }
-
-        /* 4. 项目详情头部区域 (模仿 LDR 排版) */
-        .project-header {
-            padding: 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .project-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 80px;
-            text-transform: uppercase;
-        }
-
-        /* 信息网格容器：三列布局 */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr; /* 简介占 2 份，学科和日期各占 1 份 */
-            gap: 40px;
-            border-top: 1px solid #000;
-            padding-top: 40px;
-        }
-
-        .info-col {
-            padding-right: 20px;
-        }
-
-        .info-col h3 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #888;
-        }
-
-        .info-col p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        /* 5. 图片展示区域 */
-        .image-section {
-            padding: 50px 50px 80px 50px;
-            text-align: center;
-        }
-
-        .hero-image {
-            width: 100%;
-            /* 图片比例控制：1500x600 的比例是 40% */
-            padding-top: 40%; 
-            position: relative;
-            background-color: #f0f0f0; 
-            background-size: cover;
-            background-position: center;
-            border: 1px solid #ddd;
-            max-width: 1200px; 
-            margin: 0 auto;
-        }
-
-        /* 6. 底部版权 Footer (从主页继承) */
-        .footer {
-            background-color: white;
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #888;
-            border-top: 1px solid #eee; 
-        }
-        .footer p { margin-bottom: 5px; }
-
-
-        /* 7. 回到顶部按钮 (从主页继承) */
-        #backToTopBtn {
-            position: fixed; 
-            bottom: 30px; right: 30px;
-            width: 50px; height: 50px;
-            background-color: #000; color: white;
-            border: none; border-radius: 50%; 
-            font-size: 24px; cursor: pointer; z-index: 999;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        #backToTopBtn:hover {
-            background-color: var(--accent-color); 
-            transform: translateY(-5px); 
-        }
-        #backToTopBtn.show {
-            opacity: 1; visibility: visible;
-        }
-
-
-        /* 8. 手机端适配 (从主页继承并调整) */
-        @media (max-width: 768px) {
-            .navbar { padding: 20px; }
-            .nav-menu {
-                /* 手机上菜单结构是绝对定位的下拉菜单 */
-                display: none; 
-                position: absolute; 
-                top: 80px; /* 调整到导航栏下方 */
-                right: 20px;
-                background-color: rgba(0,0,0,0.9); 
-                flex-direction: column;
-                gap: 20px; 
-                padding: 20px; 
-                border-radius: 5px; 
-                width: 200px;
-            }
-            .nav-menu a {
-                color: white !important; /* 下拉菜单中文字变回白色 */
-            }
-            .nav-menu.active { display: flex; }
-            .hamburger { display: flex; } /* 手机上显示汉堡菜单 */
-            
-            .project-title { font-size: 2rem; margin-bottom: 40px; }
-            .info-grid { 
-                grid-template-columns: 1fr; /* 手机上变为单列堆叠 */
-                gap: 20px;
-            }
-            .image-section { padding: 20px; }
-            .hero-image { padding-top: 60%; } /* 手机上图片可以更方一点 */
-            #backToTopBtn { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
     <button id="backToTopBtn" title="Back to Top" type="button" aria-label="回到顶部">↑</button>
 
-    <nav class="navbar">
+    <nav class="navbar subpage-nav">
         <a href="index.html" class="logo" aria-label="ZIJIE"><span class="logo-icon" aria-hidden="true"></span></a>
         <div class="nav-menu">
             <a href="index.html">HOME</a>
@@ -252,44 +29,34 @@
         <h1 class="project-title">IFUN PROJECT</h1>
 
         <div class="info-grid">
-            
             <div class="info-col">
                 <h3>SYNOPSIS</h3>
                 <p>
-                    [在这里填写 IFUN 项目的简短介绍。例如：负责该项目核心场景和世界观的搭建，包括初期概念图、3D 辅助流程和美术风格定义。]
+                    IFUN is a strategic initiative focusing on interactive entertainment environments. 
+                    My role involved creating the core visual language, defining the atmosphere through 
+                    concept art.
                 </p>
             </div>
 
             <div class="info-col">
                 <h3>DISCIPLINES</h3>
-                <p>
-                    Environment Concept Design
-                </p>
-                <p>
-                    3D Pre-visualization (Blender)
-                </p>
-                <p>
-                    Cinematic Keyframes
-                </p>
+                <p>Concept Design</p>
+                <p>3D Art (Blender)</p>
+                <p>Environment Art</p>
             </div>
 
             <div class="info-col">
                 <h3>DATE</h3>
-                <p>
-                    2024
-                </p>
-                <h3 style="margin-top: 15px;">CLIENT</h3>
-                <p>
-                    [客户/公司名称]
-                </p>
+                <p>2024-2025</p>
             </div>
         </div>
     </header>
 
     <section class="image-section">
-        <div class="hero-image" style="background-image: url('bg_ifun.jpg');">
-            </div>
-        </section>
+        <img src="bg_ifun.jpg" alt="IFUN Main View" class="project-img">
+        
+        <img src="bg1_ifun.jpg" alt="IFUN Detail View" class="project-img">
+    </section>
 
     <footer class="footer">
         <p>&copy; 2026 caozijie. All Rights Reserved.</p>
@@ -297,32 +64,19 @@
     </footer>
 
     <script>
-        // 获取按钮元素
         const backToTopBtn = document.getElementById("backToTopBtn");
-
-        // 监听页面滚动事件
         window.onscroll = function() {
-            // 如果向下滚动超过 300px，就显示按钮
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 backToTopBtn.classList.add("show");
             } else {
                 backToTopBtn.classList.remove("show");
             }
         };
-
-        // 点击按钮回到顶部
         backToTopBtn.onclick = function() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // 平滑滚动
-            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
         };
-
-        // 汉堡菜单切换
         const hamburger = document.getElementById("hamburger");
         const navMenu = document.querySelector(".nav-menu");
-
-        // 确保汉堡菜单的逻辑能正常绑定
         if (hamburger) {
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
