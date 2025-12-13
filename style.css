@@ -1,368 +1,362 @@
-        /* =========================================
-           0. 颜色配置 (在这里修改颜色)
-           ========================================= */
-        :root {
-            /* 把 #ff4500 改成任何你想要的颜色代码即可 */
-            --accent-color: #ff4500; 
-        }
+/* =========================================
+   0. 颜色配置 (在这里修改颜色)
+   ========================================= */
+:root {
+    /* 把 #ff4500 改成任何你想要的颜色代码即可 */
+    --accent-color: #ff4500; 
+}
 
-        /* 1. 全局重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* 1. 全局重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        html {
-            scroll-behavior: smooth; /* 全局平滑滚动 */
-        }
+html {
+    scroll-behavior: smooth; /* 全局平滑滚动 */
+}
 
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: white;
-            color: #000;
-            overflow-x: hidden;
-            position: relative;
-        }
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000; /* 修复：将默认背景设为黑色，防止视频区域露出白色 */
+    color: #000; /* 默认文字颜色依然是黑色（用于列表区域的悬停） */
+    overflow-x: hidden;
+    position: relative;
+}
 
-        /* 2. 顶部导航栏 */
-        .navbar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
+/* 2. 顶部导航栏 */
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
+/* 首页导航栏（默认白色 logo/文字） */
+.navbar .logo-icon,
+.navbar .hamburger span {
+    background-color: white; /* 默认白色 */
+}
 
-        /* 使用 PNG 作为遮罩（mask），背景色由 --accent-color 控制 */
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            display: inline-block;
-            background-color: white; /* 默认色，与其他菜单一致 */
-            -webkit-mask: url("logo-150x150.png") no-repeat center / contain;
-            mask: url("logo-150x150.png") no-repeat center / contain;
-            transition: background-color 0.25s ease, transform 0.25s ease;
-        }
+.navbar .nav-menu a {
+    color: white; /* 链接默认白色 */
+}
 
-        /* 悬停时使用统一的 accent 颜色 */
-        .logo:hover .logo-icon {
-            background-color: var(--accent-color);
-            transform: translateY(-2px);
-        }
+/* 针对子页面的导航栏 (project-header 内部的 navbar) */
+.project-header .navbar {
+    position: relative; /* 项目页面的导航栏不再是绝对定位，方便与 header 一起滚动 */
+    padding: 30px 50px 0 50px;
+}
 
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
+/* 使用 PNG 作为遮罩（mask），背景色由 --accent-color 控制 */
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-color: white; 
+    -webkit-mask: url("logo-150x150.png") no-repeat center / contain;
+    mask: url("logo-150x150.png") no-repeat center / contain;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
 
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            transition: 0.3s;
-        }
+/* 悬停时使用统一的 accent 颜色 */
+.logo:hover .logo-icon {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 5px);
-        }
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
 
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
 
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -5px);
-        }
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: 0.3s;
+}
 
-        .nav-menu a {
-            text-decoration: none;
-            color: white;
-            font-size: 0.8rem;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: color 0.3s; /* 颜色渐变过渡 */
-        }
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 5px);
+}
 
-        /* --- 鼠标悬停变色效果（仅菜单文字） --- */
-        .nav-menu a:hover {
-            color: var(--accent-color); /* 调用上面定义的颜色 */
-        }
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
 
-        /* 3. Hero 区域 (视频背景) */
-        .hero-section {
-            position: relative;
-            width: 100%;
-            height: 75vh; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            overflow: hidden;
-        }
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -5px);
+}
 
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
+.nav-menu a {
+    text-decoration: none;
+    color: white; 
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.3s; /* 颜色渐变过渡 */
+}
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 0;
-        }
+/* --- 鼠标悬停变色效果（对所有导航链接都有效） --- */
+.nav-menu a:hover {
+    color: var(--accent-color); /* 悬停时变橙色 */
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            padding: 0 20px;
-        }
+/* 3. Hero 区域 (视频背景) - 关键修复 */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 75vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
 
-        .hero-title {
-            font-size: 4.5rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
 
-        .hero-subtitle {
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 400;
-        }
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
 
-        /* 4. 下方列表区域 */
-        .list-section {
-            background-color: white;
-            padding: 60px 50px 40px 50px; /* 底部稍微留少点，因为下面有Footer */
-        }
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 0 20px;
+}
 
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
-        .list-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 25px 0;
-            border-bottom: 1px solid #000;
-            text-decoration: none;
-            color: #000;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+.hero-subtitle {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
 
-        .item-number {
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            margin-right: 40px;
-            font-weight: bold;
-        }
+/* 4. 下方列表区域 - 关键修改：改为黑色背景 */
+.list-section {
+    padding: 60px 50px 40px 50px; 
+    color: #fff; /* 关键修改：文字为白色 */
+}
 
-        .item-title {
-            flex: 1;
-            font-size: 1.2rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: underline;
-            text-underline-offset: 5px;
-        }
+.project-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        .item-arrow {
-            font-size: 1.5rem;
-            font-weight: light;
-        }
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0;
+    border-bottom: 1px solid #fff; /* 关键修改：白色分割线 */
+    text-decoration: none;
+    color: #fff; /* 关键修改：链接文字为白色 */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-        .list-item:hover {
-            background-color: #000;
-            color: #fff;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-        
-        .list-item:hover .item-title {
-            text-decoration: none;
-        }
+.item-number {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    margin-right: 40px;
+    font-weight: bold;
+}
 
-        /* 5. 底部版权 Footer */
-        .footer {
-            background-color: white;
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #888;
-            border-top: 1px solid #eee; /* 很浅的分割线 */
-        }
+.item-title {
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
 
-        .footer p {
-            margin-bottom: 5px;
-        }
+.item-arrow {
+    font-size: 1.5rem;
+    font-weight: light;
+}
 
-        /* 6. 回到顶部按钮 */
-        #backToTopBtn {
-            position: fixed; /* 固定在屏幕右下角 */
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: #000; /* 黑色背景 */
-            color: white;
-            border: none;
-            border-radius: 50%; /* 圆形 */
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 999;
-            opacity: 0; /* 默认隐藏 */
-            visibility: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+/* 列表悬停时颜色反转 */
+.list-item:hover {
+    background-color: #fff;
+    color: #000;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
-        #backToTopBtn:hover {
-            background-color: var(--accent-color); /* 悬停时也变橙色 */
-            transform: translateY(-5px); /* 微微上浮 */
-        }
+.list-item:hover .item-title {
+    text-decoration: none;
+}
 
-        /* 当添加了 .show 类时显示 */
-        #backToTopBtn.show {
-            opacity: 1;
-            visibility: visible;
-        }
+/* 5. 底部版权 Footer */
+.footer {
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555; /* 使用浅灰色文字 */
+    border-top: 1px solid #222; /* 使用深色分割线 */
+}
 
-        /* 手机端适配 */
-        @media (max-width: 768px) {
-            .navbar { padding: 20px; }
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 20px;
-                background-color: rgba(0,0,0,0.9);
-                flex-direction: column;
-                gap: 20px;
-                padding: 20px;
-                border-radius: 5px;
-                width: 200px;
-            }
-            .nav-menu.active { display: flex; }
-            .hamburger { display: flex; }
-            .hero-title { font-size: 2.5rem; }
-            .list-section { padding: 40px 20px; }
-            #backToTopBtn { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
-        }
+/* 6. 回到顶部按钮 */
+#backToTopBtn {
+    position: fixed; 
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #fff; /* 关键修改：在黑色背景下按钮初始颜色用白色 */
+    color: #000; /* 箭头颜色用黑色 */
+    border: none;
+    border-radius: 50%; 
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0; 
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(255,255,255,0.3); /* 白色阴影 */
+}
 
-        /* 项目页面样式 */
-        .project-header {
-            background-color: #000;
-            color: white;
-            padding: 80px 50px 60px 50px;
-            text-align: center;
-        }
+#backToTopBtn:hover {
+    background-color: var(--accent-color); /* 悬停时变橙色 */
+    color: white; /* 悬停时箭头变白色 */
+    transform: translateY(-5px); 
+}
 
-        .project-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+/* 当添加了 .show 类时显示 */
+#backToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+/* 手机端适配 */
+@media (max-width: 768px) {
+    .navbar { padding: 20px; }
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: rgba(0,0,0,0.9);
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        width: 200px;
+    }
+    
+    .nav-menu.active { display: flex; }
+    .hamburger { display: flex; }
+    .hero-title { font-size: 2.5rem; }
+    .list-section { padding: 40px 20px; }
+    #backToTopBtn { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
+    .info-grid { grid-template-columns: 1fr; gap: 30px; }
+}
 
-        .info-col h3 {
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
+/* 7. 项目页面样式 */
+.project-header {
+    color: white; /* 白色文字 */
+    padding: 80px 50px 60px 50px;
+    text-align: left; 
+}
 
-        .info-col p {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 5px;
-        }
+.project-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: left;
+}
 
-        .image-section {
-            padding: 60px 0;
-            background-color: white;
-        }
+.info-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; 
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        .hero-image {
-            width: 100%;
-            height: 60vh;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+.info-col h3 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: white; /* 标题颜色改为白色 */
+}
 
-        .gallery-section {
-            padding: 60px 50px;
-            background-color: #f5f5f5;
-        }
+.info-col p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 5px;
+    color: #ccc; /* 描述文字颜色稍微浅一些 */
+}
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.image-section {
+    padding: 60px 50px;
+}
 
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
+.hero-image {
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 40px; /* 增加图片之间的间距 */
+}
