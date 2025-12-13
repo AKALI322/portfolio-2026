@@ -75,6 +75,32 @@
             gap: 30px;
         }
 
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -5px);
+        }
+
         .nav-menu a {
             text-decoration: none;
             color: white;
@@ -94,7 +120,7 @@
         .hero-section {
             position: relative;
             width: 100%;
-            height: 85vh; 
+            height: 75vh; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -255,7 +281,20 @@
         /* 手机端适配 */
         @media (max-width: 768px) {
             .navbar { padding: 20px; }
-            .nav-menu { display: none; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 20px;
+                background-color: rgba(0,0,0,0.9);
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+                border-radius: 5px;
+                width: 200px;
+            }
+            .nav-menu.active { display: flex; }
+            .hamburger { display: flex; }
             .hero-title { font-size: 2.5rem; }
             .list-section { padding: 40px 20px; }
             #backToTopBtn { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
@@ -273,6 +312,11 @@
             <a href="#">COLLECTIONS</a>
             <a href="#">CONTACT</a>
         </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
     <header class="hero-section">
@@ -282,7 +326,7 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">CAO ZIJIE</h1>
-            <p class="hero-subtitle">Concept Artist</p>
+            <p class="hero-subtitle">GAME ENVIRONMENTS / CINEMATIC VIS DEV / BLENDER & PRE-VIS / GENERATIVE AI / PROTOTYPING</p>
             <p class="hero-subtitle">Creating worlds that players never want to leave</p>
         </div>
     </header>
@@ -313,8 +357,8 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2026 caozijie. All rights reserved.</p>
-        <p>Designed for Portfolio Showcase.</p>
+        <p>&copy; © 2026 caozijie. All Rights Reserved.</p>
+        <p>Intellectual Property and Copyright belong to their respective copyright holders.</p>
     </footer>
 
     <script>
@@ -338,6 +382,15 @@
                 behavior: "smooth" // 平滑滚动
             });
         };
+
+        // 汉堡菜单切换
+        const hamburger = document.getElementById("hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
     </script>
 
 </body>
