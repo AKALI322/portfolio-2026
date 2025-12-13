@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFUN | CAO ZIJIE Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <title>IFUN | ZIJIE Portfolio</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    
+    </head>
 <body>
 
     <button id="backToTopBtn" title="Back to Top" type="button" aria-label="回到顶部">↑</button>
 
-    <nav class="navbar">
+    <nav class="navbar subpage-nav">
         <a href="index.html" class="logo" aria-label="ZIJIE"><span class="logo-icon" aria-hidden="true"></span></a>
         <div class="nav-menu">
             <a href="index.html">HOME</a>
@@ -25,30 +27,27 @@
     </nav>
 
     <header class="project-header">
-        <h1 class="project-title">IFUN</h1>
+        <h1 class="project-title">IFUN PROJECT</h1>
 
         <div class="info-grid">
             
             <div class="info-col">
                 <h3>SYNOPSIS</h3>
                 <p>
-                    [请在这里填写IFUN项目的简短介绍。例如：负责该项目核心场景和世界观的搭建，包括初期概念图、3D预可视化和材质风格定义。]
-                </p>
-                <p style="margin-top: 15px;">
-                    [如果需要，添加第二段更详细的介绍。]
+                    [请在此处填写 IFUN 项目的简短介绍。例如：负责该项目核心场景和世界观的概念设计，包括 3D 预可视化（Blender）和关键帧插画。]
                 </p>
             </div>
 
             <div class="info-col">
                 <h3>DISCIPLINES</h3>
                 <p>
-                    Game Environment Concept
+                    Environment Concept Design
                 </p>
                 <p>
                     3D Pre-visualization (Blender)
                 </p>
                 <p>
-                    Keyframe Illustration
+                    Generative AI Integration
                 </p>
             </div>
 
@@ -57,26 +56,22 @@
                 <p>
                     2024
                 </p>
+                <h3 style="margin-top: 15px;">CLIENT</h3>
+                <p>
+                    [客户/公司名称]
+                </p>
             </div>
         </div>
     </header>
 
     <section class="image-section">
-        <div class="hero-image" style="background-image: url('bg_ifun.jpg.jpg');">
+        <div class="hero-image" style="background-image: url('bg_ifun.jpg');">
         </div>
-    </section>
-
-    <section class="gallery-section">
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="bg1_ifun.jpg.jpg" alt="IFUN Project Image 1">
-            </div>
-            <div class="gallery-item">
-                <img src="bg_ifun.jpg.jpg" alt="IFUN Project Image 2">
-            </div>
-            <!-- 可以添加更多图片 -->
+        
+        <div class="hero-image" style="background-image: url('bg1_ifun.jpg');">
         </div>
-    </section>
+        
+        </section>
 
     <footer class="footer">
         <p>&copy; 2026 caozijie. All Rights Reserved.</p>
@@ -89,6 +84,7 @@
 
         // 监听页面滚动事件
         window.onscroll = function() {
+            // 如果向下滚动超过 300px，就显示按钮
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 backToTopBtn.classList.add("show");
             } else {
@@ -100,7 +96,7 @@
         backToTopBtn.onclick = function() {
             window.scrollTo({
                 top: 0,
-                behavior: "smooth"
+                behavior: "smooth" // 平滑滚动
             });
         };
 
@@ -108,7 +104,7 @@
         const hamburger = document.getElementById("hamburger");
         const navMenu = document.querySelector(".nav-menu");
 
-        // 确保汉堡菜单在子页面中也工作
+        // 确保汉堡菜单的逻辑能正常绑定
         if (hamburger) {
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
