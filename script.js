@@ -29,3 +29,57 @@ if (hamburger && navMenu) {
         navMenu.classList.toggle("active");
     });
 }
+
+const galleryItems = document.querySelectorAll(".gallery-item");
+const lightbox = document.querySelector(".lightbox");
+const lightboxImage = document.querySelector(".lightbox-image");
+const lightboxClose = document.querySelector(".lightbox-close");
+
+const openLightbox = (src, alt) => {
+    if (!lightbox || !lightboxImage) {
+        return;
+    }
+    lightboxImage.src = src;
+    lightboxImage.alt = alt || "作品预览";
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+};
+
+const closeLightbox = () => {
+    if (!lightbox || !lightboxImage) {
+        return;
+    }
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    lightboxImage.src = "";
+};
+
+if (galleryItems.length && lightbox && lightboxImage) {
+    galleryItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            const src = item.dataset.full || item.querySelector("img")?.src;
+            const alt = item.querySelector("img")?.alt;
+            if (src) {
+                openLightbox(src, alt);
+            }
+        });
+    });
+
+    lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener("click", closeLightbox);
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+            closeLightbox();
+        }
+    });
+}

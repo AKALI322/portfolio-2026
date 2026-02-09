@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | ZIJIE Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="backToTopBtn" title="Back to Top" type="button" aria-label="回到顶部">↑</button>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo" aria-label="ZIJIE"><span class="logo-icon" aria-hidden="true"></span></a>
+        <div class="nav-menu">
+            <a href="index.html">HOME</a>
+            <a href="collections.html" class="is-active">COLLECTIONS</a>
+            <a href="#">CONTACT</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="collections-hero">
+        <div class="collections-hero-content">
+            <h1 class="collections-title">COLLECTIONS</h1>
+            <p class="collections-subtitle">All artworks in one place, curated in an ArtStation-style grid.</p>
+        </div>
+    </header>
+
+    <main class="collections-gallery">
+        <div class="gallery-grid">
+            <button class="gallery-item" type="button" aria-label="查看作品 1" data-full="bg_ifun.jpg">
+                <img src="bg_ifun.jpg" alt="作品预览 1">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 2" data-full="bg1_ifun.jpg">
+                <img src="bg1_ifun.jpg" alt="作品预览 2">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 3" data-full="bg_ifun.jpg">
+                <img src="bg_ifun.jpg" alt="作品预览 3">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 4" data-full="bg1_ifun.jpg">
+                <img src="bg1_ifun.jpg" alt="作品预览 4">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 5" data-full="bg_ifun.jpg">
+                <img src="bg_ifun.jpg" alt="作品预览 5">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 6" data-full="bg1_ifun.jpg">
+                <img src="bg1_ifun.jpg" alt="作品预览 6">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 7" data-full="bg_ifun.jpg">
+                <img src="bg_ifun.jpg" alt="作品预览 7">
+            </button>
+            <button class="gallery-item" type="button" aria-label="查看作品 8" data-full="bg1_ifun.jpg">
+                <img src="bg1_ifun.jpg" alt="作品预览 8">
+            </button>
+        </div>
+    </main>
+
+    <div class="lightbox" aria-hidden="true" role="dialog" aria-label="作品预览">
+        <button class="lightbox-close" type="button" aria-label="关闭">×</button>
+        <img class="lightbox-image" src="" alt="">
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 caozijie. All Rights Reserved.</p>
+        <p>Intellectual Property and Copyright belong to their respective copyright holders.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
