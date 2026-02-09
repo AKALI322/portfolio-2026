@@ -11,7 +11,7 @@
     <button id="backToTopBtn" title="Back to Top" type="button" aria-label="回到顶部">↑</button>
 
     <nav class="navbar">
-        <a href="#" class="logo" aria-label="ZIJIE"><span class="logo-icon" aria-hidden="true"></span></a>
+        <a href="index.html" class="logo" aria-label="ZIJIE"><span class="logo-icon" aria-hidden="true"></span></a>
         <div class="nav-menu">
             <a href="index.html">HOME</a>
             <a href="#">COLLECTIONS</a>
@@ -27,6 +27,7 @@
     <header class="hero-section">
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="bg.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -66,37 +67,7 @@
         <p>Intellectual Property and Copyright belong to their respective copyright holders.</p>
     </footer>
 
-    <script>
-        // 获取按钮元素
-        const backToTopBtn = document.getElementById("backToTopBtn");
-
-        // 监听页面滚动事件
-        window.onscroll = function() {
-            // 如果向下滚动超过 300px，就显示按钮
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                backToTopBtn.classList.add("show");
-            } else {
-                backToTopBtn.classList.remove("show");
-            }
-        };
-
-        // 点击按钮回到顶部
-        backToTopBtn.onclick = function() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // 平滑滚动
-            });
-        };
-
-        // 汉堡菜单切换
-        const hamburger = document.getElementById("hamburger");
-        const navMenu = document.querySelector(".nav-menu");
-
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
-        });
-    </script>
+    <script src="script.js" defer></script>
 
 </body>
 </html>
